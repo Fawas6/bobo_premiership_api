@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Players\PlayerController;
 use App\Http\Controllers\Season\CreateNewFootballSeasonController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,9 @@ Route::middleware(['throttle:global'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::post('logout', LogoutController::class);
             Route::post('create-new-football-season', CreateNewFootballSeasonController::class);
+            Route::apiResource('players', PlayerController::class)->except(['index']);
         });
+
+        Route::get('players', [PlayerController::class, 'index']);
     });
 });
