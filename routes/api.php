@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Games\GameController;
 use App\Http\Controllers\Players\PlayerController;
 use App\Http\Controllers\Season\CreateNewFootballSeasonController;
 use Illuminate\Support\Facades\Route;
@@ -22,13 +23,16 @@ Route::middleware(['throttle:global'])->group(function () {
         Route::post('login', LoginController::class);
     });
 
+    Route::get('players', [PlayerController::class, 'index']);
+    Route::get('games', [GameController::class, 'index']);
+
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::post('logout', LogoutController::class);
             Route::post('create-new-football-season', CreateNewFootballSeasonController::class);
             Route::apiResource('players', PlayerController::class)->except(['index']);
+            Route::apiResource('games', GameController::class)->except(['index']);
+            Route::get('get', CreateNewFootballSeasonController::class);
         });
-
-        Route::get('players', [PlayerController::class, 'index']);
     });
 });
