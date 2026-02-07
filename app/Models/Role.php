@@ -15,7 +15,7 @@ class Role extends Model
 
     public static function getAdminRoleId()
     {
-        return env('ADMIN_ROLE_ID', 1);
+        return (int) env('ADMIN_ROLE_ID', 1);
     }
 
     public function permissions()
