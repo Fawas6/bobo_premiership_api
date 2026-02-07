@@ -1,2 +1,3 @@
-# bobo_premiership_api
-The official api repository of the bobo premiership
+# Bobo Premiership API
+
+Laravel backend API for Bobo Premiership Fantasy League.
