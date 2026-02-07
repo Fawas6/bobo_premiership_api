@@ -16,23 +16,15 @@ class GameService
 
     public static function getGames($request)
     {
-        $gamesQuery = match ($request->sort_by) {
-            'newest' => Game::latest(),
-            'oldest' => Game::oldest(),
-            default => Game::latest()
-        };
-
-        $games = $gamesQuery->when($request->q, function ($q) use ($request) {
+        $games = Game::query()->when($request->q, function ($q) use ($request) {
             $q->whereRelation('player', 'name', 'like', "%{$request->q}%")
                 ->orWhereRelation('player', 'player_id', 'like', "%{$request->q}%");
         })
-            ->when($request->season_id, function ($q) use ($request) {
-                $q->whereRelation('gameweek', 'season_id', $request->season_id);
-            })
             ->when($request->gameweek_id, function ($q) use ($request) {
                 $q->where('gameweek_id', $request->gameweek_id);
             })
             ->with(['player', 'gameweek'])
+            ->orderBy('points', 'desc')
             ->paginate(10);
 
         $games->getCollection()->transform(function ($game) {

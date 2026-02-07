@@ -3,8 +3,10 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Games\GameController;
+use App\Http\Controllers\Gameweek\GetFootballGameweekController;
 use App\Http\Controllers\Players\PlayerController;
 use App\Http\Controllers\Season\CreateNewFootballSeasonController;
+use App\Http\Controllers\Season\GetFootballSeasonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,8 @@ Route::middleware(['throttle:global'])->group(function () {
 
     Route::get('players', [PlayerController::class, 'index']);
     Route::get('games', [GameController::class, 'index']);
+    Route::get('seasons', GetFootballSeasonController::class);
+    Route::get('seasons/{season}/gameweeks', GetFootballGameweekController::class);
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::prefix('admin')->group(function () {

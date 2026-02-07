@@ -20,8 +20,8 @@ class GameController extends Controller
     {
         $data = GameService::getGames($request);
 
-        if (!$request->season_id) {
-            throw new BadRequestHttpException('You must provide a season_id');
+        if (!$request->gameweek_id) {
+            throw new BadRequestHttpException('You must provide a gameweek_id');
         }
 
         if ($data->isEmpty()) {
