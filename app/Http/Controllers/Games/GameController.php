@@ -37,7 +37,17 @@ class GameController extends Controller
     public function store(StoreGameRequest $request)
     {
         Gate::authorize('manage-games', Game::class);
-        Game::create($request->validated());
+
+        Game::updateOrCreate(
+            [
+                'player_id' => $request->validated()['player_id'],
+                'gameweek_id' => $request->validated()['gameweek_id'],
+            ],
+            [
+                'points' => $request->validated()['points'],
+            ]
+        );
+
         return Response::api("New game created successfully", code: 200);
     }
 

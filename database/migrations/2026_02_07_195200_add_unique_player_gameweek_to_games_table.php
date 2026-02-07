@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('games', function (Blueprint $table) {
+            $table->unique(['player_id', 'gameweek_id'], 'games_player_gameweek_unique');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('games', function (Blueprint $table) {
+            $table->dropUnique('games_player_gameweek_unique');
+        });
+    }
+};
