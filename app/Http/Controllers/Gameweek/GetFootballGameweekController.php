@@ -15,6 +15,12 @@ class GetFootballGameweekController extends Controller
      */
     public function __invoke(Request $request, Season $season)
     {
-        return Response::api("Football gameweeks retrieved successfully", Gameweek::select('id', 'name')->where('season_id', $season->id)->get(), code: 200);
+        $data = Gameweek::select('id', 'name')
+        ->where('season_id', $season->id)
+        ->where('id', '<=', $season->current_gameweek_id)
+        ->orderBy('id', 'desc')
+        ->get();
+
+        return Response::api("Football gameweeks retrieved successfully", $data, code: 200);
     }
 }

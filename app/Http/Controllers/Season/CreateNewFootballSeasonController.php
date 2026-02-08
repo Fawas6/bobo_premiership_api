@@ -17,7 +17,9 @@ class CreateNewFootballSeasonController extends Controller
     public function __invoke(Request $request)
     {
         Gate::authorize('manage-seasons', Season::class);
+
         FootballSeasonService::createNewSeason();
+
         return Response::api("New football season created successfully", code: 200);
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Gameweek\GetFootballGameweekController;
 use App\Http\Controllers\Players\PlayerController;
 use App\Http\Controllers\Season\CreateNewFootballSeasonController;
 use App\Http\Controllers\Season\GetFootballSeasonController;
+use App\Http\Controllers\Season\SetSeasonCurrentGameweekController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,7 @@ Route::middleware(['throttle:global'])->group(function () {
             Route::apiResource('players', PlayerController::class)->except(['index']);
             Route::apiResource('games', GameController::class)->except(['index']);
             Route::get('get', CreateNewFootballSeasonController::class);
+            Route::post('seasons/{season}/set-current-gameweek', SetSeasonCurrentGameweekController::class);
         });
     });
 });
