@@ -14,6 +14,6 @@ class GetFootballSeasonController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Response::api("Football seasons retrieved successfully", Season::select('id', 'year')->get(), code: 200);
+        return Response::api("Football seasons retrieved successfully", Season::select('id', 'year')->latest()->get(), code: 200);
     }
 }

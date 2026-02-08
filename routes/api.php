@@ -37,7 +37,6 @@ Route::middleware(['throttle:global'])->group(function () {
             Route::post('create-new-football-season', CreateNewFootballSeasonController::class);
             Route::apiResource('players', PlayerController::class)->except(['index']);
             Route::apiResource('games', GameController::class)->except(['index']);
-            Route::get('get', CreateNewFootballSeasonController::class);
             Route::post('seasons/{season}/set-current-gameweek', SetSeasonCurrentGameweekController::class);
         });
     });

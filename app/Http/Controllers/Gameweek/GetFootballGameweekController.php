@@ -21,6 +21,10 @@ class GetFootballGameweekController extends Controller
         ->orderBy('id', 'desc')
         ->get();
 
+        if ($data->isEmpty()) {
+            return Response::api("No football gameweeks found", code: 404);
+        }
+
         return Response::api("Football gameweeks retrieved successfully", $data, code: 200);
     }
 }
